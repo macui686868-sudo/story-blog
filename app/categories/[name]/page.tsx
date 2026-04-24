@@ -39,7 +39,20 @@ export default function CategoryPage({ params }: PageProps) {
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {stories.map((story) => (
-          <StoryCard key={story._id} story={story} />
+          <article key={story._id} className="story-card">
+  <Link href={`/stories/${story.slug}`}>
+    <h2 className="story-title">{story.title}</h2>
+  </Link>
+  <div className="story-meta">
+    <time>{story.date}</time>
+    <span>·</span>
+    <span>{story.category}</span>
+  </div>
+  <p className="story-excerpt">{story.excerpt}</p>
+  <Link href={`/stories/${story.slug}`} className="read-more">
+    阅读全文 →
+  </Link>
+</article>
         ))}
       </div>
     </div>

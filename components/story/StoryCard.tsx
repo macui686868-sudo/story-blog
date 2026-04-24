@@ -37,7 +37,9 @@ export function StoryCard({ story, variant = 'default' }: StoryCardProps) {
               <div className="flex items-center gap-2 mb-3">
                 <span className="tag">{story.category}</span>
                 <span className="text-sm text-neutral-500">{formatDate(story.date)}</span>
-                <span className="text-sm text-neutral-500">📖 {Math.ceil(story.readingTime)}分钟</span>
+               {/* 暂时禁用阅读时间
+<span className="text-sm text-neutral-500">📖 {Math.ceil(story.readingTime)}分钟</span>
+*/}
               </div>
               <h3 className="text-2xl font-semibold mb-2 group-hover:text-primary-600 transition-colors line-clamp-2">
                 {story.title}
