@@ -2,49 +2,60 @@
 
 interface ShareButtonsProps {
   title: string
-  url: string
+  url?: string
 }
 
 export function ShareButtons({ title, url }: ShareButtonsProps) {
-  const encodedUrl = encodeURIComponent(url)
-  const encodedTitle = encodeURIComponent(title)
+  const shareUrl = url || (typeof window !== 'undefined' ? window.location.href : '')
 
-  const shareLinks = {
-    twitter: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`,
-    weibo: `http://service.weibo.com/share/share.php?title=${encodedTitle}&url=${encodedUrl}`,
-    copy: '#',
-  }
-
-  const copyToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText(url)
-      alert('链接已复制到剪贴板！')
-    } catch (err) {
-      console.error('复制失败:', err)
+  const handleShare = (platform: string) => {
+    let shareLink = ''
+    
+    switch (platform) {
+      case 'twitter':
+        shareLink = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(shareUrl)}`
+        break
+      case 'weibo':
+        shareLink = `http://service.weibo.com/share/share.php?title=${encodeURIComponent(title)}&url=${encodeURIComponent(shareUrl)}`
+        break
+      case 'wechat':
+        alert('请点击右上角"..."选择"分享到朋友圈"')
+        return
+      default:
+        return
     }
+    
+    window.open(shareLink, '_blank', 'width=600,height=400')
   }
 
   return (
     <div className="flex items-center gap-3">
-      <span className="text-sm text-neutral-500">分享到：</span>
-      <a
-        href={shareLinks.twitter}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="p-2 rounded-full bg-neutral-100 dark:bg-neutral-800 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors"
+      <span className="text-sm text-neutral-500">分享：</span>
+      <button
+        onClick={() => handleShare('twitter')}
+        className="p-2 rounded-full bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 transition"
         aria-label="分享到 Twitter"
       >
-        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 0021.102-11.474c0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
         </svg>
-      </a>
+      </button>
       <button
-        onClick={copyToClipboard}
-        className="p-2 rounded-full bg-neutral-100 dark:bg-neutral-800 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors"
-        aria-label="复制链接"
+        onClick={() => handleShare('weibo')}
+        className="p-2 rounded-full bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 transition"
+        aria-label="分享到微博"
       >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M20.5 12c0-4.7-3.8-8.5-8.5-8.5S3.5 7.3 3.5 12s3.8 8.5 8.5 8.5 8.5-3.8 8.5-8.5zM12 17.5c-3 0-5.5-2.5-5.5-5.5S9 6.5 12 6.5s5.5 2.5 5.5 5.5-2.5 5.5-5.5 5.5z" />
+        </svg>
+      </button>
+      <button
+        onClick={() => handleShare('wechat')}
+        className="p-2 rounded-full bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 transition"
+        aria-label="分享到微信"
+      >
+        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M16.5 10.5c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-7 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10.5-2c0-3.3-3.6-6-8-6s-8 2.7-8 6 3.6 6 8 6c.6 0 1.2-.1 1.8-.2.2.3.4.5.7.8.5.4 1.1.7 1.8.9.1-.1.2-.2.3-.3.8-.6 1.4-1.3 1.8-2.1.5.1 1 .2 1.6.2 4.4 0 8-2.7 8-6 0-2.1-1.4-3.9-3.5-5.1z" />
         </svg>
       </button>
     </div>
