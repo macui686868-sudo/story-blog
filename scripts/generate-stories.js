@@ -29,7 +29,6 @@ export interface Story {
   date: string
   category: string
   tags: string[]
-  coverImage?: string
   content: string
 }
 
@@ -54,7 +53,6 @@ const stories = files.map(file => {
     date: data.date || new Date().toISOString().split('T')[0],
     category: data.category || '未分类',
     tags: data.tags || [],
-    coverImage: data.coverImage || '',
     content: content.trim()
   }
 })
