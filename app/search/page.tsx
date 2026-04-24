@@ -1,13 +1,13 @@
 'use client'
 
-import { getAllStories } from '@/src/lib/stories'
+import { allStories } from '@/lib/generated-stories'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 
 export default function SearchPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [results, setResults] = useState<any[]>([])
-  const stories = getAllStories()
+  const stories = allStories
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)

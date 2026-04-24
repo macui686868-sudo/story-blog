@@ -1,8 +1,8 @@
-import { getAllStories } from '@/src/lib/stories'
+import { allStories } from '@/lib/generated-stories'
 import Link from 'next/link'
 
 export default function ArchivePage() {
-  const stories = getAllStories()
+  const stories = allStories
   
   // 按年份分组
   const groupedByYear: { [year: string]: typeof stories } = {}
