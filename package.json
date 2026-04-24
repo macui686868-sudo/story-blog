@@ -3,16 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "npm run generate-stories && next dev",
+    "build": "npm run generate-stories && next build",
     "start": "next start",
-    "contentlayer": "contentlayer2 build",
-    "lint": "eslint"
+    "lint": "eslint",
+    "generate-stories": "node scripts/generate-stories.js"
   },
   "dependencies": {
     "contentlayer2": "^0.5.8",
     "date-fns": "^4.1.0",
     "gray-matter": "^4.0.3",
+    "marked": "^18.0.2",
     "next": "16.2.4",
     "next-contentlayer2": "^0.5.8",
     "next-mdx-remote": "^6.0.0",
