@@ -2,6 +2,9 @@
   "name": "story-blog",
   "version": "0.1.0",
   "private": true,
+   "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "dev": "npm run generate-stories && next dev",
     "build": "npm run generate-stories && next build",
