@@ -21,16 +21,18 @@ export function StoryCard({ story, variant = 'default' }: StoryCardProps) {
       <Link href={`/stories/${story.slug}`} className="group block">
         <article className="card overflow-hidden">
           <div className="md:flex">
-            {story.coverImage && (
-              <div className="md:w-1/3 relative h-48 md:h-auto">
-                <Image
-                  src={story.coverImage}
-                  alt={story.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            )}
+       {/* 暂时禁用封面图
+{story.coverImage && (
+  <div className="md:w-1/3 relative h-48 md:h-auto">
+    <Image
+      src={story.coverImage}
+      alt={story.title}
+      fill
+      className="object-cover"
+    />
+  </div>
+)}
+*/}
             <div className="p-6 md:w-2/3">
               <div className="flex items-center gap-2 mb-3">
                 <span className="tag">{story.category}</span>
