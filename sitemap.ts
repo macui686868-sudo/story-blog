@@ -6,7 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   
   const storyUrls = stories.map((story) => ({
     url: `https://yourdomain.com/stories/${story.slug}`,
-    lastModified: story.updated || story.date,
+    lastModified: story.date,
     changeFrequency: 'weekly' as const,
     priority: 0.7,
   }))
