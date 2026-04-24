@@ -1,4 +1,4 @@
-import { allStories } from 'contentlayer/generated'
+import { allStories } from '@/lib/generated-stories'
 import Link from 'next/link'
 
 export default function CategoriesPage() {
