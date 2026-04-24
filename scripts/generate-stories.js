@@ -29,6 +29,7 @@ export interface Story {
   date: string
   category: string
   tags: string[]
+  coverImage?: string
   content: string
 }
 
